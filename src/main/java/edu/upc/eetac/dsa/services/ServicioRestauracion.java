@@ -1,9 +1,7 @@
 package edu.upc.eetac.dsa.services;
 
 
-import edu.upc.eetac.dsa.Models.Pedido;
 import edu.upc.eetac.dsa.Models.Producto;
-import edu.upc.eetac.dsa.Models.Usuario;
 import edu.upc.eetac.dsa.ProductManager;
 import edu.upc.eetac.dsa.ProductManagerImpl;
 import io.swagger.annotations.Api;
@@ -17,6 +15,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+
+
+
+
 @Api(value = "/restauracion", description = "Servicios del usuario")  //documentació
 @Path("/restauracion")   //ruta http
 
@@ -27,15 +29,8 @@ public class ServicioRestauracion {
     public ServicioRestauracion() {
 
         this.pm = ProductManagerImpl.getInstance();
-        Producto producto1 = new Producto("cocacola",10,2.3);
-        Producto producto2 = new Producto("pan",10,1.5);
-        Producto producto3 = new Producto("queso", 20,2.0);
 
-
-
-        this.pm.addProducto(producto1);
-        this.pm.addProducto(producto2);
-        this.pm.addProducto(producto3);
+        //declarar e inicializar estructuras de datos necesarias
 
 
 
@@ -50,14 +45,69 @@ public class ServicioRestauracion {
     })
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductsByPrice() {
+    public Response getProductsByPrice(@PathParam("nombre") String valor ) {
 
-        List<Producto> productosPrecio = this.pm.getProductsPrice();
+        //List<Producto> productosPrecio = this.pm.getProductsPrice();
 
-        GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productosPrecio) {};    //eines jersei per serialitzar objecte jsnon, vector objectes
-        return Response.status(201).entity(entity).build()  ;
+        //GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productosPrecio) {};    //eines jersei per serialitzar objecte jsnon, vector objectes
+        //return Response.status(201).entity(entity).build()  ;
+
+        return null;
 
     }
+
+
+
+
+    @POST
+    @ApiOperation(value = "Crear pedido (producto)", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response=Producto.class),
+            @ApiResponse(code = 500, message = "Validation Error")      })
+
+    @Path("/addProduct")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response newProduct(Producto producto) {
+        //this.pm.addProducto(producto);
+        return Response.status(201).build();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
 
 
